@@ -48,6 +48,17 @@ jobs:
         id: check-api
         run: |
           ./deepin-abigail -c fastFilesCompare.json | tee api_check.txt
+          multi_line_string="
+          --- CHECK CHANGE IN <src/frame/window/modules/accounts/accountsdetailwidget.h> ---
+            [Del_export_fun] : void DCC_NAMESPACE::accounts::AccountsDetailWidget::resizeDomainUserTipsL
+            [Del_fun] : void DCC_NAMESPACE::accounts::AccountsDetailWidget::showEvent(QShowEvent * event) 
+            [Chg_exprort_fun] : void resizeDomainUserTipsLabel()
+            [Del_fun] : void showEvent(QShowEvent * event)
+            [Chg_struct] : <class:DCC_NAMESPACE::accounts::AccountsDetailWidget> below
+                del [dcc::widgets::SettingsItem * DCC_NAMESPACE::accounts::AccountsDetailWidget::m_domainUserTipsItem]
+                del [DTK_WIDGET_NAMESPACE::DTipLabel * DCC_NAMESPACE::accounts::AccountsDetailWidget::m_domainUserTipsLabel]
+          "
+          echo "$multi_line_string" | tee api_check.txt
           if [ -e 'api_check.txt' ];then
             check_num=$(cat api_check.txt | grep -c '\[Chg_exprort_fun\|\[Del_export_fun' || true)
             if [ $check_num -gt 0 ];then
