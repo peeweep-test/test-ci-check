@@ -65,12 +65,12 @@ jobs:
               echo "isFail=true" >> $GITHUB_OUTPUT
               sed -i '1i API接口检查检测到存在对外接口删除和修改:' api_check.txt
               sed -i '1i [API接口检查]:' api_check.txt
-              # exit 1
+              exit 1
             fi
           fi
       - name: upload artifact
         if: always() && steps.check-api.outputs.isFail == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: api-check-report
           path: api_check.txt
@@ -81,7 +81,7 @@ jobs:
     if: needs.Check-Api-Change.outputs.isFail == 'true'
     steps:
       - name: download artifact
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4
         with:
           name: api-check-report
       - name: Comment PR
