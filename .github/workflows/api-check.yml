@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: Check-Api-Change
     continue-on-error: true
-    if: needs.Check-Api-Change.outputs.isFail == 'true' && failure()
+    if: needs.Check-Api-Change.outputs.isFail == 'true'
     steps:
       - name: download artifact
         uses: actions/download-artifact@4.1.7
