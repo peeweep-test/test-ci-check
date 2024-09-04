@@ -1,3 +1,3 @@
 # !/bin/sh
 
-echo $name
+echo $name1
