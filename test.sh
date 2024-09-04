@@ -1,3 +1,3 @@
 # !/bin/sh
 
-echo $name1
+echo $name11
