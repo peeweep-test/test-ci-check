@@ -63,7 +63,8 @@ jobs:
             check_num=$(cat api_check.txt | grep -c '\[Chg_exprort_fun\|\[Del_export_fun' || true)
             if [ $check_num -gt 0 ];then
               echo "isFail=true" >> $GITHUB_OUTPUT
-              sed -i '1i API接口检查检测到存在对外接口删除:' api_check.txt
+              sed -i '1i API接口检查检测到存在对外接口删除和修改:' api_check.txt
+              sed -i '1i [API接口检查]:' api_check.txt
               exit 1
             fi
           fi
